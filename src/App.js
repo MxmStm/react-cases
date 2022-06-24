@@ -1,39 +1,24 @@
-import './App.css';
-import {useMemo, useState} from "react";
+import './styles/App.css';
+import {useState} from "react";
 import {PostList} from "./components/PostList";
 import {PostForm} from "./components/PostForm";
 import {PostFilter} from "./components/PostFilter";
 import {MyModal} from "./components/UI/MyModal/MyModal";
 import {MyButton} from "./components/UI/button/MyButton";
+import {usePosts} from "./hooks/usePosts";
 
 function App() {
-    const [posts, setPosts] = useState([
-        {id: 1, title: 'JavaScript', body: 'fgfdgfdg'},
-        {id: 2, title: 'React', body: 'gdfgdfgdfg'},
-        {id: 3, title: 'TypeScript', body: 'aadfqwfv'},
-    ])
+    const [posts, setPosts] = useState([])
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false)
 
-
-    const sortedPosts = useMemo(() => {
-        if (filter.sort) {
-            return [...posts].sort((a, b) =>
-                a[filter.sort].localeCompare(b[filter.sort]))
-        }
-        return posts
-    }, [posts, filter.sort])
-
-    const sortedAndSearchedPosts = useMemo(() => {
-        return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase().trim()))
-    }, [filter.query, sortedPosts])
-
+    //custom hook
+    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
         setModal(false)
     }
-    //получаем postId из дочернего элемента
     const removePost = (postId) => {
         setPosts(posts.filter(post => post.id !== postId))
     }
