@@ -73,7 +73,7 @@ const Posts = () => {
                 </div>
                 : <PostList
                     posts={sortedAndSearchedPosts}
-                    title={'List of posts #1'}
+                    title={'List of posts'}
                     remove={removePost}
                 />
             }

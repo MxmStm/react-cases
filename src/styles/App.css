@@ -24,6 +24,10 @@
     align-items: center;
 }
 
+.post__btn {
+    display: flex;
+}
+
 /*styles for animation of posts from react transition group*/
 .post-enter {
     transform: translateX(-350px);

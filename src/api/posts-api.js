@@ -9,5 +9,9 @@ export const postsApi = {
             }
         })
         return response
+    },
+    async getById(id) {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts/' + id)
+        return response
     }
 }
